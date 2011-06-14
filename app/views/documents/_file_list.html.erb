@@ -1,0 +1,13 @@
+<ul>
+	<% @documents.each do |doc| %>
+	<li>
+		<% if not doc.viewed %>
+			<strong>
+		<% end %>
+		<%= link_to doc.title, :action => :view, :doc_id => doc.id %> <em><%= doc.type.capitalize %></em>(<%= link_to 'X', {:action => :delete, :doc_id => doc.id}, :confirm => 'Are you sure you want to delete this file?' %>)
+		<% if not doc.viewed %>
+			</strong>
+		<% end %>
+	</li>
+	<% end %>
+</ul>

@@ -1,0 +1,10 @@
+<% form_for '', :url => {:action => :save, :doc_id => @document.id} do |d| %>
+<p><strong>Title: </strong><%= text_field_tag :title, @document.title %></p>
+<%= submit_tag 'Save Metadata' %>
+<% end %>
+<%= render :partial => "edit_#{@document.type}"%>
+<h3>Upload New Content</h3>
+<% form_for '', :url => {:action => :send_upload, :doc_id => @document.id}, :html => {:multipart => true} do %>
+<p>File: <%=file_field_tag :upload_file %></p>
+<%= submit_tag 'Upload' %>
+<% end %>

@@ -1,0 +1,5 @@
+<% form_for '', :url => {:action => :save_folder} do %>
+<p>Parent: <%= select_tag :parent, options_for_select([""]+@folders.collect{|f| [f.title, f.id]}) %></p>
+<p>Title: <%= text_field_tag :title %></p>
+<%= submit_tag 'Save' %>
+<% end %>

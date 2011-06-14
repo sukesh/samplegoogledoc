@@ -1,0 +1,6 @@
+<% @title = 'New File' %>
+<% form_for '', :url => {:action => :new_file} do %>
+<p>Type: <%= select_tag :type, options_for_select(['document', 'spreadsheet', 'presentation']) %>
+<p>Title: <%= text_field_tag :title %></p>
+<%= submit_tag 'Create' %>
+<% end %>

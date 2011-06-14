@@ -1,0 +1,8 @@
+<ul>
+	<% folder.sub_folders.each do |f| %>
+	<li>
+		<%= link_to f.title, :action => :index, :folder_id => f.id %> (<%= link_to 'X', {:action => :delete, :folder_id => f.id}, :confirm => 'Are you sure you want to delete this Folder?' %>)
+		<%= render :partial => 'folders', :locals => {:folder => f} %>
+	</li>
+	<% end %>
+</ul>

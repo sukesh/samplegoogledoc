@@ -1,0 +1,27 @@
+<% @title = 'View Document Info' %>
+<p><%= button_to_function 'Edit', "window.location = '#{url_for(:action => :edit, :doc_id => @document.id)}'" %> <%= button_to_function 'Edit in iFrame', "window.location = '#{url_for(:action => :edit_iframe, :doc_id => @document.id)}'" %>
+<p><strong>Title:</strong> <%= @document.title %></p>
+<p><strong>Author:</strong> <%= @document.author_name %> (<%= @document.author_email %>)</p>
+<p><strong>Type:</strong> <%= @document.type %></p>
+
+<h3>Folders</h3>
+<% form_for '', :url => {:action => :update_doc_folder, :doc_id => @document.id, :do => 'add'} do %>
+<p><%= select_tag :folder, options_for_select(@account.folders.select{|f| !@document.folders.include?(f.title) }.collect{|f| [f.title, f.id]}) %> <%= submit_tag 'Add to Folder' %></p>
+<% end %>
+<ul>
+	<% @document.folders.each do |f| %>
+		<li><%= f %> (<%= link_to 'X', {:action => :update_doc_folder, :doc_id => @document.id, :do => 'delete', :folder => f} %>)</li>
+	<% end %>
+</ul>
+<h3>Download As:</h3>
+<%= render :partial => @document.type+"_download" %>
+<h3>Permissions</h3>
+<strong>Add User</strong>
+<% form_for '', :url => {:action => :add_user, :doc_id => @document.id} do %>
+<p>Email: <%= text_field_tag :user %> Role: <%= select_tag :role, options_for_select(['writer', 'reader']) %> <%= submit_tag 'Save' %>
+<% end %>
+<ul>
+<% @document.access_rules.each do |a| %>
+	<li><%= a.user %> - <%= a.role %> <% if a.role != 'owner' %>(<%= link_to 'X', {:action => :remove_user, :user => a.user, :doc_id => @document.id}, :confirm => 'Are you sure you want to remove this user?' %>)<% end %></li>
+<% end %>
+</ul>

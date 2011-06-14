@@ -1,0 +1,8 @@
+<% form_for '', :url => {:action => :search } do %>
+<p>Search by Full Text: <%= text_field_tag 'term' %></p>
+<p>Search by Title: <%= text_field_tag 'args[title]' %></p>
+<p>Match Exact Title: <%= check_box_tag 'args[title-exact]', 'true' %></p>
+<p>Max Results: <%= text_field_tag 'args[max-results]', '100' %></p>
+<p>Include Deleted Files: <%= check_box_tag 'args[showdeleted]', 'true' %></p>
+<%= submit_tag 'Search' %>
+<% end %>
